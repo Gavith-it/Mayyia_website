@@ -7,11 +7,13 @@ export const metadata: Metadata = {
   description: 'Elegance, Captured. Excellence, Framed. View our catering services, events, and culinary presentations.',
 }
 
+import ScatterGallery from '@/components/pages/ScatterGallery'
+
 export default function GalleryPage() {
   return (
     <>
       <GalleryHero />
-      <GalleryGrid />
+      <ScatterGallery />
     </>
   )
 }

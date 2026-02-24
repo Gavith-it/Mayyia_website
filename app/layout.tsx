@@ -5,6 +5,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Preloader from '@/components/layout/Preloader'
 import ScrollToTop from '@/components/layout/ScrollToTop'
+import SmoothScroll from '@/components/layout/SmoothScroll'
+import NoiseOverlay from '@/components/ui/NoiseOverlay'
 
 const greatVibes = Great_Vibes({
   weight: ['400'],
@@ -43,6 +45,8 @@ export default function RootLayout({
         <Preloader />
         <div className="relative min-h-screen">
           <Header />
+          <NoiseOverlay />
+          <SmoothScroll />
           <main>{children}</main>
           <Footer />
           <ScrollToTop />

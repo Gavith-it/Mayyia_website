@@ -7,11 +7,13 @@ export const metadata: Metadata = {
   description: 'Explore our exquisite menu featuring premium dishes crafted by master chefs.',
 }
 
+import MenuBook from '@/components/pages/MenuBook'
+
 export default function MenuPage() {
   return (
     <>
       <MenuHero />
-      <MenuContent />
+      <MenuBook />
     </>
   )
 }

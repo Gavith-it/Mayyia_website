@@ -1,36 +1,70 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { IMAGE_ASSETS } from '@/lib/image-assets'
+import KineticText from '@/components/ui/KineticText'
 
 export default function ContactHero() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  })
+
+  // Parallax effects
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+
   return (
-    <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
+    <section ref={containerRef} className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-dark-900">
+
+      {/* Cinematic Background */}
+      <motion.div
+        style={{ y, scale, opacity }}
+        className="absolute inset-0 z-0"
+      >
         <Image
           src={IMAGE_ASSETS.contact.hero}
-          alt="Contact Us"
+          alt="Contact Hero"
           fill
-          sizes="100vw"
+          priority
           className="object-cover"
-          quality={92}
+          quality={95}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-black/60" />
+      </motion.div>
+
+      {/* Content */}
       <div className="container-custom relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
         >
-          <div className="section-subtitle mb-4">Contact Us</div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-playfair font-bold text-white mb-6">
-            Let's Create Something <span className="gradient-text">Memorable</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Whether you're planning a wedding, a sacred ritual, or a private celebration, we'd be honoured to be part of your journey.
-          </p>
+          <div className="flex flex-col items-center">
+            <span className="text-gold-400 uppercase tracking-[0.3em] text-xs md:text-sm font-medium mb-4">
+              Get in Touch
+            </span>
+
+            <KineticText
+              text="Let's Create Magic"
+              typ="char"
+              stagger={0.05}
+              className="text-6xl md:text-8xl font-great-vibes text-white drop-shadow-lg mb-6 block min-h-[1.2em]"
+            />
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="text-gray-300 font-playfair text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+            >
+              Whether for a wedding, a sacred ritual, or a private celebration, we are honoured to serve you.
+            </motion.p>
+          </div>
         </motion.div>
       </div>
     </section>

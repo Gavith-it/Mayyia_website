@@ -112,7 +112,7 @@ export default function Header() {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 400 }}
-                className={`text-5xl font-great-vibes font-normal leading-none overflow-visible pt-1 pb-1 sm:pt-1.5 sm:pb-1.5 -ml-2 md:-ml-3 ${isScrolled ? 'gradient-text' : 'gradient-text'}`}
+                className={`text-5xl font-great-vibes font-normal leading-none overflow-visible pt-1 pb-1 sm:pt-1.5 sm:pb-1.5 -ml-2 md:-ml-3 ${isScrolled ? 'text-[#FF0000]' : 'text-[#FF0000]'}`}
               >
                 Sri Mayyia
               </motion.div>
@@ -168,8 +168,8 @@ export default function Header() {
               <div className="flex flex-col h-full">
                 {/* Header with Close Button */}
                 <div className="flex items-center justify-between p-6 border-b border-gold-400/10">
-                  <div className="text-2xl font-great-vibes font-normal gradient-text">
-                    Sri Mayyia <span className="font-playfair text-lg">Caterers</span>
+                  <div className="text-2xl font-great-vibes font-normal text-[#FF0000]">
+                    Sri Mayyia <span className="font-playfair text-lg text-white">Caterers</span>
                   </div>
                   <motion.button
                     onClick={() => setIsMenuOpen(false)}

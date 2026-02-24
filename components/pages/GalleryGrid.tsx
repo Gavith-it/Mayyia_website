@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { FiX } from 'react-icons/fi'
 import { IMAGE_ASSETS } from '@/lib/image-assets'
+
+const ITEMS_PER_ROW = 8
 
 const galleryTitles: { title: string; category: string }[] = [
   { title: 'Elegant Dining Room', category: 'Interior' },
@@ -17,12 +19,24 @@ const galleryTitles: { title: string; category: string }[] = [
   { title: 'Evening Ambiance', category: 'Interior' },
   { title: 'Fine Dining Experience', category: 'Interior' },
 ]
-const galleryImages = IMAGE_ASSETS.gallery.grid.map((src, i) => ({
+const baseGalleryImages = IMAGE_ASSETS.gallery.grid.map((src, i) => ({
   id: i + 1,
   src,
   title: galleryTitles[i]?.title ?? '',
   category: galleryTitles[i]?.category ?? 'Interior',
 }))
+
+// Cycle base images so we have enough for multiple full rows of 8 (e.g. 24 = 3 rows)
+function buildGalleryForFullRows(count: number): typeof baseGalleryImages {
+  const list: typeof baseGalleryImages = []
+  for (let i = 0; i < count; i++) {
+    const item = baseGalleryImages[i % baseGalleryImages.length]
+    list.push({ ...item, id: i + 1 })
+  }
+  return list
+}
+
+const galleryImages = buildGalleryForFullRows(24) // 3 full rows of 8
 
 export default function GalleryGrid() {
   const [selectedCategory, setSelectedCategory] = useState('All')
@@ -33,6 +47,16 @@ export default function GalleryGrid() {
   const filteredItems = selectedCategory === 'All'
     ? galleryImages
     : galleryImages.filter(item => item.category === selectedCategory)
+
+  // Only full rows: take first N*8 items so every row has exactly 8
+  const fullRowCount = Math.floor(filteredItems.length / ITEMS_PER_ROW)
+  const rows = useMemo(() => {
+    const r: typeof filteredItems[] = []
+    for (let i = 0; i < fullRowCount * ITEMS_PER_ROW; i += ITEMS_PER_ROW) {
+      r.push(filteredItems.slice(i, i + ITEMS_PER_ROW))
+    }
+    return r
+  }, [fullRowCount, filteredItems])
 
   return (
     <section className="section-padding bg-beige">
@@ -92,40 +116,44 @@ export default function GalleryGrid() {
           ))}
         </div>
 
-        {/* Gallery Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                onClick={() => setSelectedImage(item.id)}
-                className="group relative h-80 rounded-xl overflow-hidden cursor-pointer premium-card p-0"
-              >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  quality={92}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-xl font-playfair text-white mb-1">{item.title}</h3>
-                  <p className="text-brandGold text-sm">{item.category}</p>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Gallery: full rows of 8 — narrower container, images stay sharp */}
+        <div className="max-w-[1140px] w-full mx-auto flex flex-col gap-4">
+          {rows.length === 0 && (
+            <p className="text-center text-muted py-12">No gallery rows for this category. Select &quot;All&quot; to see full rows of 8.</p>
+          )}
+          {rows.map((rowItems, rowIndex) => (
+            <motion.div
+              key={rowIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: rowIndex * 0.08 }}
+              className="gallery-wrap flex w-full h-[70vh] min-h-[280px] gap-1"
+            >
+              {rowItems.map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  className="group item flex-1 h-full min-w-0 relative bg-center bg-cover bg-no-repeat rounded-lg overflow-hidden cursor-pointer transition-[flex] duration-700 ease-out hover:flex-[7]"
+                  onClick={() => setSelectedImage(item.id)}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 1140px) 14vw, 143px"
+                    className="object-cover"
+                    quality={92}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                    <h3 className="text-lg font-playfair text-white truncate">{item.title}</h3>
+                    <p className="text-brandGold text-sm">{item.category}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ))}
+        </div>
 
         {/* Lightbox */}
         <AnimatePresence>

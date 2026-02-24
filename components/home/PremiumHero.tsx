@@ -1,268 +1,139 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { FiArrowDown, FiPlay, FiPause } from 'react-icons/fi'
-import Image from 'next/image'
-import { IMAGE_ASSETS } from '@/lib/image-assets'
-
-const heroImages = IMAGE_ASSETS.home.heroSliders
-const parallaxImages = IMAGE_ASSETS.home.parallax
+import { motion } from 'framer-motion'
+import KineticText from '@/components/ui/KineticText'
+import { FiArrowRight } from 'react-icons/fi'
 
 export default function PremiumHero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  })
-
-  // Optimized scroll effects - reduced complexity and improved performance
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.15], { clamp: true }) // Reduced scale for better performance
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 1], [1, 1], { clamp: true }) // Keep video always visible
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 100], { clamp: true }) // Reduced movement
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0], { clamp: true })
-  const parallaxY1 = useTransform(scrollYProgress, [0, 1], [0, -150], { clamp: true }) // Reduced parallax
-  const parallaxY2 = useTransform(scrollYProgress, [0, 1], [0, -100], { clamp: true }) // Reduced parallax
-  const parallaxScale1 = useTransform(scrollYProgress, [0, 1], [1, 1.05], { clamp: true }) // Reduced scale
-  const parallaxScale2 = useTransform(scrollYProgress, [0, 1], [1, 1.04], { clamp: true }) // Reduced scale
-
-  // Video controls
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause()
-      } else {
-        videoRef.current.play()
-      }
-      setIsVideoPlaying(!isVideoPlaying)
-    }
-  }
 
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden flex items-center justify-center"
+      className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black"
     >
-      {/* Video Background Layer - Only Video #15 */}
-      <motion.div
-        style={{ scale: backgroundScale, opacity: backgroundOpacity }}
-        className="absolute inset-0 z-0"
-      >
+      {/* 1. Cinematic Background Video */}
+      <div className="absolute inset-0 z-0 bg-black">
         <video
-          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
-          onLoadedData={() => setVideoLoaded(true)}
-          onPlay={() => setIsVideoPlaying(true)}
-          onPause={() => setIsVideoPlaying(false)}
+          preload="auto"
+          className="w-full h-full object-cover opacity-80"
         >
-          <source src={IMAGE_ASSETS.home.video} type="video/mp4" />
+          <source src="/images/home/SMC%20Website%20Video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-      </motion.div>
 
-      {/* Parallax Image Layers - Optimized */}
-      <motion.div
-        style={{ y: parallaxY1, scale: parallaxScale1 }}
-        className="absolute top-20 right-10 w-64 h-96 rounded-2xl overflow-hidden opacity-60 z-[1] hidden lg:block"
-      >
-        <Image
-          src={parallaxImages[0]}
-          alt="Parallax"
-          fill
-          sizes="(max-width: 1024px) 0vw, 512px"
-          className="object-cover"
-          quality={92}
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      </motion.div>
-
-      <motion.div
-        style={{ y: parallaxY2, scale: parallaxScale2 }}
-        className="absolute bottom-20 left-10 w-56 h-80 rounded-2xl overflow-hidden opacity-50 z-[1] hidden lg:block"
-      >
-        <Image
-          src={parallaxImages[1]}
-          alt="Parallax"
-          fill
-          sizes="(max-width: 1024px) 0vw, 448px"
-          className="object-cover"
-          quality={92}
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      </motion.div>
-
-      {/* Animated Image Gallery (Floating) - images 3–5 so all 5 hero images used once (1–2 = parallax) */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
-        {heroImages.slice(2, 5).map((img, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-            animate={{
-              opacity: [0.4, 0.7, 0.4],
-              scale: [1, 1.15, 1],
-              rotate: [-10, 10, -10],
-              x: [0, 40, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8 + index * 2,
-              repeat: Infinity,
-              delay: index * 1.5,
-              ease: 'easeInOut',
-            }}
-            className="absolute hidden md:block"
-            style={{
-              left: `${15 + index * 30}%`,
-              top: `${25 + index * 20}%`,
-              width: '220px',
-              height: '280px',
-            }}
-          >
-            <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl">
-              <Image
-                src={img}
-                alt={`Gallery ${index}`}
-                fill
-                sizes="(max-width: 1280px) 0vw, 440px"
-                className="object-cover"
-                quality={92}
-                priority={index === 0}
-                loading={index === 0 ? undefined : 'lazy'}
-                onError={(e) => {
-                  console.error(`Failed to load hero image ${index}:`, img);
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-            </div>
-          </motion.div>
-        ))}
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60 opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#000000_120%)] opacity-80" />
       </div>
 
-      {/* Main Content */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 container-custom text-center text-white"
-      >
+      {/* Main Content Layer */}
+      <div className="relative z-10 container-custom px-4 w-full h-full flex flex-col justify-center items-center">
+        {/* Top Decoration: Restored Tagline */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-4"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="absolute top-[15%] md:top-[18%] text-center w-full"
         >
-          <span className="text-gold-400 font-montserrat text-xs md:text-sm uppercase tracking-[0.3em] font-light">
-            Legacy in Every Bite. Precision in Every Detail.
-          </span>
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-gold-300 font-montserrat text-[10px] md:text-sm uppercase tracking-[0.3em] font-medium border-b border-gold-400/30 pb-2">
+              Legacy in Every Bite. Precision in Every Detail.
+            </span>
+          </div>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, type: 'spring', stiffness: 100 }}
-          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-great-vibes font-normal mb-4 leading-tight"
-        >
-          <motion.span
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            className="block text-white"
-          >
-            Sri Mayyia
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8 }}
-            className="gradient-text block"
-          >
-            Caterers
-          </motion.span>
-        </motion.h1>
+        {/* Center Typography */}
+        <div className="text-center relative mt-8">
+          <div className="relative z-20">
+            <KineticText
+              text="Sri Mayyia"
+              typ="char"
+              stagger={0.08}
+              duration={1.2}
+              className="text-[5rem] md:text-[7rem] lg:text-[9rem] font-great-vibes font-normal text-transparent bg-clip-text bg-gradient-to-b from-gold-100 via-gold-300 to-gold-600 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] leading-none block min-h-[1.2em]"
+            />
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 font-montserrat font-light leading-relaxed"
-        >
-          Since 1953, Sri Mayyia has been Karnataka&apos;s trusted name for premium vegetarian catering
-          — bringing royal taste, refined presentation, and seamless service to weddings,
-          celebrations, and corporate occasions.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-        >
           <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="relative"
           >
-            <Link href="/booking" className="btn-primary">
-              Schedule a Consultation
-            </Link>
+            <h2 className="text-3xl md:text-5xl font-playfair font-bold text-white tracking-widest mt-2 mb-6">
+              <span className="text-gold-400">C</span>aterers
+            </h2>
+            {/* Divider */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100px" }}
+              transition={{ duration: 1, delay: 1 }}
+              className="h-[2px] bg-gold-400 mx-auto mb-8"
+            />
           </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.5 }}
+
+          {/* Restored Description Body */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="text-gray-200 font-montserrat font-light text-sm md:text-lg leading-relaxed max-w-3xl mx-auto tracking-wide"
           >
-            <Link href="/menu" className="btn-secondary">
-              Explore Our Menu
+            Since 1953, Sri Mayyia has been Karnataka&apos;s trusted name for premium <span className="text-gold-300 font-normal">vegetarian catering</span>
+            — bringing royal taste, refined presentation, and seamless service to weddings, celebrations, and corporate occasions.
+          </motion.p>
+        </div>
+
+        {/* Bottom Glass Card - Control Center */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="absolute bottom-10 md:bottom-20 z-20"
+        >
+          <div className="glass p-2 rounded-full flex items-center gap-2 bg-black/20 border-white/10 backdrop-blur-md">
+            <Link href="/menu" className="group relative px-8 py-3 rounded-full overflow-hidden bg-gold-400 text-charcoal font-semibold font-montserrat text-sm transition-all hover:bg-white">
+              <span className="relative z-10 flex items-center gap-2">
+                View Menu <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
-          </motion.div>
+
+            <Link href="/booking" className="px-8 py-3 rounded-full text-white font-montserrat text-sm hover:text-gold-300 transition-colors">
+              Book an Event
+            </Link>
+          </div>
         </motion.div>
-      </motion.div>
 
-      {/* Video Control Button */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        onClick={toggleVideo}
-        className="absolute bottom-24 right-8 z-20 w-14 h-14 glass border border-gold-400/20 rounded-full flex items-center justify-center text-gold-400 hover:bg-gold-400/10 hover:border-gold-400/40 transition-all duration-300"
-        aria-label="Toggle video"
-      >
-        {isVideoPlaying ? (
-          <FiPause className="w-6 h-6" />
-        ) : (
-          <FiPlay className="w-6 h-6" />
-        )}
-      </motion.button>
+        {/* 70 Years Badge */}
+        <motion.div
+          initial={{ opacity: 0, rotate: -90 }}
+          animate={{ opacity: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 2 }}
+          className="absolute bottom-10 right-10 hidden lg:flex items-center justify-center w-32 h-32"
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
+            <path
+              id="curve"
+              d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+              fill="transparent"
+            />
+            <text className="text-[10px] uppercase font-bold tracking-widest fill-gold-400 font-montserrat">
+              <textPath href="#curve">
+                • 70 Years of Legacy • Since 1953
+              </textPath>
+            </text>
+          </svg>
+          <div className="absolute text-2xl font-great-vibes text-white">70+</div>
+        </motion.div>
 
-
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-20 right-20 w-32 h-32 opacity-10 hidden lg:block z-[1]"
-      >
-        <div className="w-full h-full border border-gold-400 rounded-full" />
-      </motion.div>
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-        className="absolute bottom-20 left-20 w-24 h-24 opacity-10 hidden lg:block z-[1]"
-      >
-        <div className="w-full h-full border border-gold-400 rounded-full" />
-      </motion.div>
+      </div>
     </section>
   )
 }
