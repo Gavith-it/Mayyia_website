@@ -136,7 +136,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   const [isInView, setIsInView] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null); // Only for modal - doesn't affect animation
   const [imagePositions, setImagePositions] = useState<SphericalPosition[]>([]);
-  
+
   // ALL animation state in refs - NO React state to avoid re-renders
   const rotationRef = useRef<RotationState>({ x: 15, y: 15, z: 0 });
   const velocityRef = useRef<VelocityState>({ x: 0, y: 0 });
@@ -330,10 +330,10 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
       y: SPHERE_MATH.normalizeAngle(newY),
       z: currentRotation.z
     };
-    
+
     // CRITICAL: Only update ref - NO setState to avoid re-renders
     rotationRef.current = newRotation;
-    
+
     // Update DOM directly every frame - bypass React render cycle completely
     updatePositionsInDOM();
   }, [momentumDecay, clampRotationSpeed, autoRotate, autoRotateSpeed, updatePositionsInDOM]);
@@ -366,7 +366,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
       y: SPHERE_MATH.normalizeAngle(rotationRef.current.y + clampRotationSpeed(rotationDelta.y)),
       z: rotationRef.current.z
     };
-    
+
     // Only update ref - NO setState
     rotationRef.current = newRotation;
 
@@ -415,7 +415,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
       y: SPHERE_MATH.normalizeAngle(rotationRef.current.y + clampRotationSpeed(rotationDelta.y)),
       z: rotationRef.current.z
     };
-    
+
     // Only update ref - NO setState
     rotationRef.current = newRotation;
 
@@ -463,7 +463,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
           setIsInView(entry.isIntersecting);
         });
       },
-      { 
+      {
         threshold: 0.2, // Start when 20% visible
         rootMargin: '50px' // Start slightly before fully in view
       }
@@ -497,12 +497,29 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
       }
       return;
     }
-    
+
     let isRunning = true;
-    
+    let isScrolling = false;
+    let scrollTimeout: any = null;
+
+    const onScroll = () => {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 100);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     // Start animation when section comes into view
     const animate = () => {
-      if (!isRunning || !isInView) return;
+      if (!isRunning || !isInView || isScrolling) {
+        if (isRunning && isInView && isScrolling) {
+          animationFrame.current = requestAnimationFrame(animate); // Keep polling without updating DOM
+        }
+        return;
+      }
       updateMomentum();
       animationFrame.current = requestAnimationFrame(animate);
     };
@@ -512,6 +529,8 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
 
     return () => {
       isRunning = false;
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
       if (animationFrame.current) {
         cancelAnimationFrame(animationFrame.current);
         animationFrame.current = null;
@@ -574,7 +593,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         onMouseLeave={() => { hoveredIndexRef.current = null; }}
         onClick={() => setSelectedImage(image)}
       >
-        <div 
+        <div
           className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/30 hover:border-gold-400/80 bg-gray-300/80"
           style={{
             willChange: 'transform, opacity',
@@ -605,7 +624,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
               // Update opacity directly in DOM - NO React state update to avoid re-renders
               const target = e.target as HTMLImageElement;
               loadedImagesRef.current.add(index);
-              
+
               // Fade in with staggered delay - direct DOM manipulation
               setTimeout(() => {
                 target.style.opacity = '1';

@@ -428,6 +428,18 @@ export const LaserFlow = ({
     };
     document.addEventListener('visibilitychange', onVis, { passive: true });
 
+    // Performance optimization: aggressively pause rendering during scroll to prevent layout thrashing
+    let isScrolling = false;
+    let scrollTimeout: any = null;
+    const onScroll = () => {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 100);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     const updateMouse = (clientX: number, clientY: number) => {
       const rect = rectRef.current;
       if (!rect) return;
@@ -498,8 +510,8 @@ export const LaserFlow = ({
 
     const animate = () => {
       raf = requestAnimationFrame(animate);
-      // Pause when not in view or page is hidden for better performance
-      if (pausedRef.current || !inViewRef.current || document.hidden) return;
+      // Pause when not in view, disabled, or actively scrolling for better scroll performance
+      if (pausedRef.current || !inViewRef.current || document.hidden || isScrolling) return;
 
       const t = clock.getElapsedTime();
       const dt = Math.max(0, t - prevTime);
@@ -543,6 +555,8 @@ export const LaserFlow = ({
       canvas.removeEventListener('pointerleave', onLeave);
       canvas.removeEventListener('webglcontextlost', onCtxLost);
       canvas.removeEventListener('webglcontextrestored', onCtxRestored);
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
       geometry.dispose();
       material.dispose();
       renderer.dispose();

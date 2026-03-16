@@ -24,7 +24,7 @@ export default function PremiumHero() {
           preload="auto"
           className="w-full h-full object-cover opacity-80"
         >
-          <source src="/images/home/SMC%20Website%20Video.mp4" type="video/mp4" />
+          <source src="/images/home/SMC%20Website%20Video%20(1).mp4" type="video/mp4" />
         </video>
 
         {/* Cinematic Overlays */}
