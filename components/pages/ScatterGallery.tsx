@@ -46,17 +46,17 @@ export default function ScatterGallery() {
     }
 
     return (
-        <section ref={containerRef} className="min-h-screen bg-[#050505] py-24 overflow-hidden">
+        <section ref={containerRef} className="min-h-screen bg-beige py-24 overflow-hidden">
             <div className="container-custom">
                 <div className="text-center mb-20">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-great-vibes text-gold-400 mb-4"
+                        className="text-4xl md:text-6xl font-great-vibes text-charcoal mb-4"
                     >
                         Captured Moments
                     </motion.h2>
-                    <p className="text-gray-400 font-playfair italic">A glimpse into our world of elegance</p>
+                    <p className="text-muted font-playfair italic">A glimpse into our world of elegance</p>
                 </div>
 
                 {/* Scatter Grid */}

@@ -19,11 +19,11 @@ export default function ContactForm() {
     alert('Thank you for your message! We will get back to you soon.')
   }
 
-  const glassInputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-white placeholder-white/30 backdrop-blur-sm transition-all"
-  const glassCardClass = "bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:border-gold-400/30 transition-colors"
+  const glassInputClass = "w-full px-4 py-3 bg-white/60 border border-borderLight rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-charcoal placeholder-muted/60 backdrop-blur-sm transition-all"
+  const glassCardClass = "premium-card bg-offwhite/80 backdrop-blur-md border border-borderLight p-8 rounded-2xl transition-colors"
 
   return (
-    <section className="relative section-padding bg-dark-900 overflow-hidden">
+    <section className="relative section-padding bg-beige overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold-400/10 rounded-full blur-[100px]" />
@@ -41,13 +41,13 @@ export default function ContactForm() {
               transition={{ duration: 0.6 }}
               className={glassCardClass}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-dark-900 shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg">
                 <FiMapPin className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-playfair font-semibold text-white mb-2">
+              <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Office
               </h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-muted leading-relaxed">
                 Bengaluru, Karnataka<br />
                 <span className="text-sm opacity-80">Serving Pan-South India</span>
               </p>
@@ -60,13 +60,13 @@ export default function ContactForm() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className={glassCardClass}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-dark-900 shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg">
                 <FiPhone className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-playfair font-semibold text-white mb-2">
+              <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Phone
               </h3>
-              <p className="text-gray-400">
+              <p className="text-muted">
                 +91 80 1234 5678
               </p>
             </motion.div>
@@ -78,13 +78,13 @@ export default function ContactForm() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className={glassCardClass}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-dark-900 shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg">
                 <FiMail className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-playfair font-semibold text-white mb-2">
+              <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Email
               </h3>
-              <p className="text-gray-400">
+              <p className="text-muted">
                 info@srimayyia.com
               </p>
             </motion.div>
@@ -96,13 +96,13 @@ export default function ContactForm() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className={glassCardClass}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-dark-900 shadow-lg">
+              <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg">
                 <FiClock className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-playfair font-semibold text-white mb-2">
+              <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Consultation
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-muted text-sm leading-relaxed">
                 Expert guidance for your menu curation & event planning.
               </p>
             </motion.div>
@@ -117,15 +117,15 @@ export default function ContactForm() {
               transition={{ duration: 0.6 }}
               className={`${glassCardClass} h-full`}
             >
-              <h2 className="text-3xl font-playfair font-bold text-white mb-2">
-                Send a <span className="text-gold-400">Message</span>
+              <h2 className="text-3xl font-playfair font-bold text-charcoal mb-2">
+                Send a <span className="gradient-text">Message</span>
               </h2>
-              <p className="text-gray-400 mb-8">We'd love to hear about your upcoming event.</p>
+              <p className="text-muted mb-8">We'd love to hear about your upcoming event.</p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gold-400 mb-2">
+                    <label className="block text-sm font-semibold text-maroon mb-2">
                       Name *
                     </label>
                     <input
@@ -138,7 +138,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gold-400 mb-2">
+                    <label className="block text-sm font-semibold text-maroon mb-2">
                       Email *
                     </label>
                     <input
@@ -153,7 +153,7 @@ export default function ContactForm() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gold-400 mb-2">
+                    <label className="block text-sm font-semibold text-maroon mb-2">
                       Phone
                     </label>
                     <input
@@ -165,7 +165,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gold-400 mb-2">
+                    <label className="block text-sm font-semibold text-maroon mb-2">
                       Subject *
                     </label>
                     <input
@@ -179,7 +179,7 @@ export default function ContactForm() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gold-400 mb-2">
+                  <label className="block text-sm font-semibold text-maroon mb-2">
                     Message *
                   </label>
                   <textarea
@@ -195,7 +195,7 @@ export default function ContactForm() {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-gradient-to-r from-gold-400 to-gold-600 text-dark-900 font-bold rounded-lg shadow-lg hover:shadow-gold-400/20 transition-all flex items-center gap-2"
+                  className="px-8 py-4 bg-maroon text-white font-bold rounded-lg shadow-lg hover:bg-maroonHover transition-all flex items-center gap-2"
                 >
                   <FiSend className="w-5 h-5" />
                   Send Message

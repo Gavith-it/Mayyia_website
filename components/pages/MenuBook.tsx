@@ -52,22 +52,22 @@ const menuData = [
     }
 ]
 
-const MenuItem = ({ item }: { item: any }) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-between items-start border-b border-gold-400/20 pb-4 mb-4 group"
-        >
-            <div>
-                <h4 className="text-xl font-playfair text-white group-hover:text-gold-400 transition-colors">{item.name}</h4>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-            </div>
-            <div className="text-gold-400 font-bold">{item.price}</div>
-        </motion.div>
-    )
-}
+    const MenuItem = ({ item }: { item: any }) => {
+        return (
+            <motion.div
+                 initial={{ opacity: 0, x: 20 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true }}
+                 className="flex justify-between items-start border-b border-borderLight pb-4 mb-4 group"
+             >
+                 <div>
+                     <h4 className="text-xl font-playfair text-charcoal group-hover:text-maroon transition-colors">{item.name}</h4>
+                     <p className="text-muted text-sm">{item.desc}</p>
+                 </div>
+                 <div className="text-maroon font-bold">{item.price}</div>
+             </motion.div>
+         )
+     }
 
 const MenuPage = ({ data, index }: { data: any, index: number }) => {
     const ref = useRef(null)
@@ -77,7 +77,7 @@ const MenuPage = ({ data, index }: { data: any, index: number }) => {
     const y = useTransform(scrollYProgress, [0, 1], [-50, 50])
 
     return (
-        <section ref={ref} className="min-h-screen w-full flex items-center justify-center sticky top-0 bg-dark-900 border-t border-gold-400/10 overflow-hidden">
+        <section ref={ref} className="min-h-screen w-full flex items-center justify-center sticky top-0 bg-beige border-t border-borderLight overflow-hidden">
 
             {/* 3D Content Container */}
             <div className="container-custom grid lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -107,14 +107,14 @@ const MenuPage = ({ data, index }: { data: any, index: number }) => {
                 </motion.div>
 
                 {/* Right: Menu Items List */}
-                <div className="bg-dark-800/50 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-gold-400/10">
+                <div className="premium-card bg-offwhite/80 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-borderLight shadow-lg">
                     <div className="space-y-6">
                         {data.items.map((item: any, i: number) => (
                             <MenuItem key={i} item={item} />
                         ))}
                     </div>
-                    <div className="mt-8 pt-6 border-t border-gold-400/20 text-center">
-                        <button className="text-gold-400 uppercase tracking-widest text-xs font-bold hover:text-white transition-colors flex items-center justify-center gap-2">
+                    <div className="mt-8 pt-6 border-t border-borderLight text-center">
+                        <button className="text-maroon uppercase tracking-widest text-xs font-bold hover:text-gold-600 transition-colors flex items-center justify-center gap-2">
                             <FiPlus /> View All {data.category}
                         </button>
                     </div>
@@ -126,9 +126,9 @@ const MenuPage = ({ data, index }: { data: any, index: number }) => {
 }
 
 export default function MenuBook() {
-    return (
-        <div className="relative bg-dark-900">
-            {menuData.map((category, i) => (
+     return (
+         <div className="relative bg-beige">
+             {menuData.map((category, i) => (
                 <MenuPage key={i} data={category} index={i} />
             ))}
         </div>

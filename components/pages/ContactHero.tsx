@@ -19,7 +19,7 @@ export default function ContactHero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
 
   return (
-    <section ref={containerRef} className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-dark-900">
+    <section ref={containerRef} className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
 
       {/* Cinematic Background */}
       <motion.div
@@ -34,7 +34,7 @@ export default function ContactHero() {
           className="object-cover"
           quality={95}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
       </motion.div>
 
       {/* Content */}

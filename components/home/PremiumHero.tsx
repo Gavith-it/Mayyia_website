@@ -1,13 +1,24 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import KineticText from '@/components/ui/KineticText'
 import { FiArrowRight } from 'react-icons/fi'
+import { IMAGE_ASSETS } from '@/lib/image-assets'
 
 export default function PremiumHero() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    // Defensive auto-play to prevent getting "stuck" on certain browsers
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.warn("Video autoplay failed:", error)
+      })
+    }
+  }, [])
 
   return (
     <section
@@ -17,14 +28,17 @@ export default function PremiumHero() {
       {/* 1. Cinematic Background Video */}
       <div className="absolute inset-0 z-0 bg-black">
         <video
+          ref={videoRef}
+          key={IMAGE_ASSETS.home.video}
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
+          poster={IMAGE_ASSETS.home.heroSliders[0]}
           className="w-full h-full object-cover opacity-80"
         >
-          <source src="/images/home/SMC%20Website%20Video%20(1).mp4" type="video/mp4" />
+          <source src={IMAGE_ASSETS.home.video} type="video/mp4" />
         </video>
 
         {/* Cinematic Overlays */}

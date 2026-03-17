@@ -33,7 +33,7 @@ const chefs = [
 
 export default function TeamSection() {
   return (
-    <section className="section-padding bg-dark-900">
+    <section className="section-padding bg-beige">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,10 +43,10 @@ export default function TeamSection() {
           className="section-title mb-16"
         >
           <div className="section-subtitle">Our Team</div>
-          <h2 className="section-heading">
+          <h2 className="section-heading-light">
             Meet Our <span className="gradient-text">Master Chefs</span>
           </h2>
-          <p className="section-description">
+          <p className="section-description-light">
             The culinary artists who bring passion and expertise to every dish.
           </p>
         </motion.div>
@@ -73,9 +73,9 @@ export default function TeamSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <h3 className="text-2xl font-playfair text-white mb-2">{chef.name}</h3>
+                <h3 className="text-2xl font-playfair text-charcoal mb-2">{chef.name}</h3>
                 <div className="text-gold-400 font-semibold mb-4">{chef.role}</div>
-                <p className="text-gray-400 mb-6 text-sm leading-relaxed">{chef.bio}</p>
+                <p className="text-muted mb-6 text-sm leading-relaxed">{chef.bio}</p>
                 <div className="flex justify-center space-x-4">
                   <motion.a
                     href="#"

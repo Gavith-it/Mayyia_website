@@ -2,9 +2,11 @@
 
 import { useEffect, useRef } from 'react'
 import Lenis from 'lenis'
+import { usePathname } from 'next/navigation'
 
 export default function SmoothScroll() {
     const lenisRef = useRef<Lenis | null>(null)
+    const pathname = usePathname()
 
     useEffect(() => {
         // Initialize Lenis
@@ -32,6 +34,13 @@ export default function SmoothScroll() {
             lenis.destroy()
         }
     }, [])
+
+    // Reset scroll on route change
+    useEffect(() => {
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true })
+        }
+    }, [pathname])
 
     return null
 }

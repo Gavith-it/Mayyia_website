@@ -8,7 +8,7 @@ const base = '/images'
 
 export const IMAGE_ASSETS = {
   home: {
-    video: `${base}/home/video.mp4`,
+    video: `${base}/home/home4.mp4`,
     heroSliders: [
       `${base}/home/0D4A5008.JPG`,
       `${base}/home/0D4A5074.JPG`,

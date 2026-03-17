@@ -160,7 +160,7 @@ export default function Header() {
                 stiffness: 300,
                 mass: 0.8
               }}
-              className="fixed top-0 right-0 bottom-0 z-[101] w-80 bg-dark-900 overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 z-[101] w-80 bg-beige overflow-y-auto"
             >
               {/* Vertical Yellow Bar on Right Edge */}
               <div className="absolute top-0 right-0 bottom-0 w-1 bg-gold-400" />
@@ -169,13 +169,13 @@ export default function Header() {
                 {/* Header with Close Button */}
                 <div className="flex items-center justify-between p-6 border-b border-gold-400/10">
                   <div className="text-2xl font-great-vibes font-normal text-[#FF0000]">
-                    Sri Mayyia <span className="font-playfair text-lg text-white">Caterers</span>
+                    Sri Mayyia <span className="font-playfair text-lg text-charcoal">Caterers</span>
                   </div>
                   <motion.button
                     onClick={() => setIsMenuOpen(false)}
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-gold-400 transition-all duration-300"
+                    className="w-10 h-10 rounded-full bg-charcoal text-white flex items-center justify-center hover:bg-maroon transition-all duration-300"
                     aria-label="Close menu"
                   >
                     <FiX className="w-5 h-5 font-bold" />
@@ -201,8 +201,8 @@ export default function Header() {
                         onClick={() => setIsMenuOpen(false)}
                         className={`block py-3 px-4 text-lg font-playfair transition-all duration-300 ${
                           pathname === link.href
-                            ? 'text-gold-400 bg-gold-400/20 border-l-4 border-gold-400'
-                            : 'text-white hover:text-gold-400 hover:bg-gold-400/10'
+                            ? 'text-maroon bg-gold-400/20 border-l-4 border-maroon'
+                            : 'text-charcoal hover:text-maroon hover:bg-gold-400/10'
                         }`}
                       >
                         {link.label}
@@ -225,7 +225,7 @@ export default function Header() {
                     <Link
                       href="/booking"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block w-full bg-gold-400 text-dark-900 text-center font-playfair font-semibold py-3 px-6 rounded-lg hover:bg-gold-500 transition-colors duration-300"
+                      className="block w-full bg-maroon text-white text-center font-playfair font-semibold py-3 px-6 rounded-lg hover:bg-maroonHover transition-colors duration-300"
                     >
                       Reserve Table
                     </Link>
@@ -233,16 +233,16 @@ export default function Header() {
                   
                   {/* Contact Info */}
                   <div className="space-y-2 pt-2">
-                    <p className="text-gray-400 text-xs font-playfair uppercase tracking-wider">Contact Us</p>
+                    <p className="text-muted text-xs font-playfair uppercase tracking-wider">Contact Us</p>
                     <a 
                       href="tel:+1234567890" 
-                      className="text-white hover:text-gold-400 transition-colors block font-montserrat text-sm"
+                      className="text-charcoal hover:text-maroon transition-colors block font-montserrat text-sm"
                     >
                       +1 (234) 567-890
                     </a>
                     <a 
                       href="mailto:info@srimayyia.com" 
-                      className="text-white hover:text-gold-400 transition-colors block text-xs font-montserrat"
+                      className="text-charcoal hover:text-maroon transition-colors block text-xs font-montserrat"
                     >
                       info@srimayyia.com
                     </a>

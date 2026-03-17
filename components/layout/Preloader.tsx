@@ -21,7 +21,7 @@ export default function Preloader() {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center"
+      className="fixed inset-0 z-[9999] bg-beige flex items-center justify-center"
     >
       <div className="text-center">
         <motion.div

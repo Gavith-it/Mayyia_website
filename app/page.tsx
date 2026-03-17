@@ -6,11 +6,11 @@ import PreloadSphereImages from '@/components/home/PreloadSphereImages'
 // Lazy load heavy components for better performance
 
 const AboutSection = dynamic(() => import('@/components/home/AboutWithLaser'), {
-  loading: () => <div className="h-[600px] bg-dark-900" />,
+  loading: () => <div className="h-[600px] bg-beige" />,
 })
 
 const SignatureSection = dynamic(() => import('@/components/home/SignatureSection'), {
-  loading: () => <div className="h-[400px] bg-dark-800" />,
+  loading: () => <div className="h-[400px] bg-beige" />,
 })
 
 const CateringSpecialisationsSection = dynamic(() => import('@/components/home/CateringSpecialisationsSection'), {
@@ -18,15 +18,15 @@ const CateringSpecialisationsSection = dynamic(() => import('@/components/home/C
 })
 
 const GallerySection = dynamic(() => import('@/components/home/GallerySection'), {
-  loading: () => <div className="h-[800px] bg-dark-900" />,
+  loading: () => <div className="h-[800px] bg-beige" />,
 })
 
 const ChefsSection = dynamic(() => import('@/components/home/ChefsSection'), {
-  loading: () => <div className="h-[600px] bg-dark-800" />,
+  loading: () => <div className="h-[600px] bg-beige" />,
 })
 
 const ReservationSection = dynamic(() => import('@/components/home/ReservationSection'), {
-  loading: () => <div className="h-[500px] bg-dark-900" />,
+  loading: () => <div className="h-[500px] bg-beige" />,
 })
 
 export default function Home() {
