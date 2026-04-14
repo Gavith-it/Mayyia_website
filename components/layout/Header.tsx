@@ -67,7 +67,7 @@ export default function Header() {
     { href: '/menu', label: 'Menu' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/chefs', label: 'Chefs' },
-    { href: '/booking', label: 'Reservations' },
+    { href: '/booking', label: 'Book Catering' },
     { href: '/contact', label: 'Contact' },
   ]
 
@@ -112,13 +112,13 @@ export default function Header() {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 400 }}
-                className={`text-5xl font-great-vibes font-normal leading-none overflow-visible pt-1 pb-1 sm:pt-1.5 sm:pb-1.5 -ml-2 md:-ml-3 ${isScrolled ? 'text-[#FF0000]' : 'text-[#FF0000]'}`}
+                className="flex items-baseline text-5xl font-great-vibes font-normal leading-none overflow-visible pt-1 pb-1 sm:pt-1.5 sm:pb-1.5 -ml-2 md:-ml-3"
               >
-                Sri Mayyia
+                <span className={isScrolled ? 'text-[#FF0000]' : 'text-[#FF0000]'}>Sri Mayyia</span>
+                <span className={`hidden sm:block ml-2 ${isScrolled ? 'text-brandGold' : 'text-gold-400'}`}>
+                  Caterers
+                </span>
               </motion.div>
-              <span className={`text-sm font-playfair tracking-wider hidden sm:block font-semibold leading-tight overflow-visible ml-1 sm:ml-1.5 ${isScrolled ? 'text-brandGold' : 'text-gold-400'}`}>
-                CATERERS
-              </span>
             </Link>
 
             {/* Menu Button - Shows on all screens */}
@@ -168,8 +168,9 @@ export default function Header() {
               <div className="flex flex-col h-full">
                 {/* Header with Close Button */}
                 <div className="flex items-center justify-between p-6 border-b border-gold-400/10">
-                  <div className="text-2xl font-great-vibes font-normal text-[#FF0000]">
-                    Sri Mayyia <span className="font-playfair text-lg text-charcoal">Caterers</span>
+                  <div className="text-2xl font-great-vibes font-normal">
+                    <span className="text-[#FF0000]">Sri Mayyia </span>
+                    <span className="text-charcoal ml-1">Caterers</span>
                   </div>
                   <motion.button
                     onClick={() => setIsMenuOpen(false)}
@@ -227,7 +228,7 @@ export default function Header() {
                       onClick={() => setIsMenuOpen(false)}
                       className="block w-full bg-maroon text-white text-center font-playfair font-semibold py-3 px-6 rounded-lg hover:bg-maroonHover transition-colors duration-300"
                     >
-                      Reserve Table
+                      Book Catering
                     </Link>
                   </motion.div>
                   

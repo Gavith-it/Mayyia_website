@@ -5,13 +5,10 @@ import { motion } from 'framer-motion'
 import SphereImageGrid, { ImageData } from '@/components/ui/img-sphere'
 import { IMAGE_ASSETS } from '@/lib/image-assets'
 
-/** Our Story sphere: images from public/images/home/sphere-1.jpg … sphere-15.jpg (use 12–15 for smooth rotation) */
 const sphereImages: ImageData[] = IMAGE_ASSETS.home.sphere.map((src, i) => ({
   id: `sphere-${i + 1}`,
   src,
   alt: `Sri Mayyia Caterers — ${i + 1}`,
-  title: `Image ${i + 1}`,
-  description: '',
 }))
 
 export default function AboutSection() {
@@ -36,7 +33,7 @@ export default function AboutSection() {
               dragSensitivity={0.8}
               momentumDecay={0.96}
               maxRotationSpeed={6}
-              baseImageScale={0.13}
+              baseImageScale={0.18}
               hoverScale={1.4}
               perspective={1200}
                 autoRotate={true}

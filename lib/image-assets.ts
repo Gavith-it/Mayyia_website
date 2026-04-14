@@ -22,10 +22,10 @@ export const IMAGE_ASSETS = {
     ],
     reservationBg: `${base}/home/0D4A3760.JPG`,
     signature: [
-      `${base}/home/signature-1.jpg`,
-      `${base}/home/signature-2%20(2).JPG`,
-      `${base}/home/signature-3%20(3).JPG`,
-      `${base}/home/signature-4%20(4).JPG`,
+      `${base}/Curated%20Catering%20Experiences%2002%201100x500/SMC%20Website%20Designs%20%2001%201100x500.jpg`,
+      `${base}/Curated%20Catering%20Experiences%2002%201100x500/SMC%20Website%20Designs%20%2002%201100x500.jpg`,
+      `${base}/Curated%20Catering%20Experiences%2002%201100x500/SMC%20Website%20Designs%20%2003%201100x500.jpg`,
+      `${base}/Curated%20Catering%20Experiences%2002%201100x500/SMC%20Website%20Designs%20%2004%20%201100x500.jpg`,
     ],
     gallery: [
       `${base}/home/gallery-1.jpg`,
@@ -93,6 +93,50 @@ export const IMAGE_ASSETS = {
       `${base}/gallery/8.jpg`,
       `${base}/gallery/9.jpg`,
     ],
+    categories: [
+      {
+        name: "Events",
+        images: [
+          { src: `${base}/Events/Corporate Events.jpg`, title: "Corporate Events" },
+          { src: `${base}/Events/Cultural Events.jpg`, title: "Cultural Events" },
+          { src: `${base}/Events/Events.jpg`, title: "Events" },
+          { src: `${base}/Events/Sports  Events.jpg`, title: "Sports Events" },
+          { src: `${base}/Events/Weddings.jpg`, title: "Weddings" },
+        ]
+      },
+      {
+        name: "Safety & Hygiene",
+        images: [
+          { src: `${base}/Safety & Hygiene/Equipment Safety.jpg`, title: "Equipment Safety" },
+          { src: `${base}/Safety & Hygiene/Food Safety.jpg`, title: "Food Safety" },
+          { src: `${base}/Safety & Hygiene/Kitchen Hygiene.jpg`, title: "Kitchen Hygiene" },
+          { src: `${base}/Safety & Hygiene/Personal Hygiene.jpg`, title: "Personal Hygiene" },
+          { src: `${base}/Safety & Hygiene/Safety & Hygiene copy.jpg`, title: "Safety & Hygiene" },
+          { src: `${base}/Safety & Hygiene/Serving Hygiene.jpg`, title: "Serving Hygiene" },
+        ]
+      },
+      {
+        name: "Servings",
+        images: [
+          { src: `${base}/Servings/Banana Leaf Service.jpg`, title: "Banana Leaf Service" },
+          { src: `${base}/Servings/Buffet Service.jpg`, title: "Buffet Service" },
+          { src: `${base}/Servings/Family Style Service.jpg`, title: "Family Style Service" },
+          { src: `${base}/Servings/Gold plate service.jpg`, title: "Gold Plate Service" },
+          { src: `${base}/Servings/Live Counter Service.jpg`, title: "Live Counter Service" },
+          { src: `${base}/Servings/Plate Service.jpg`, title: "Plate Service" },
+          { src: `${base}/Servings/Servings copy.jpg`, title: "Servings" },
+        ]
+      },
+      {
+        name: "Staff",
+        images: [
+          { src: `${base}/Staff/Kitchen Staff.jpg`, title: "Kitchen Staff" },
+          { src: `${base}/Staff/Management Staff.jpg`, title: "Management Staff" },
+          { src: `${base}/Staff/Service Staff.jpg`, title: "Service Staff" },
+          { src: `${base}/Staff/Staff copy.jpg`, title: "Staff" },
+        ]
+      }
+    ]
   },
   chefs: {
     hero: `${base}/chefs/hero.jpg`,

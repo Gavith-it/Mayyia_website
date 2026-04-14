@@ -120,7 +120,7 @@ export default function PremiumHero() {
             </Link>
 
             <Link href="/booking" className="px-8 py-3 rounded-full text-white font-montserrat text-sm hover:text-gold-300 transition-colors">
-              Book an Event
+              Book Catering
             </Link>
           </div>
         </motion.div>

@@ -32,7 +32,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative bg-maroon text-offwhite overflow-hidden">
+    <footer className="relative bg-charcoal text-offwhite overflow-hidden">
       {/* Subtle gold accent */}
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
         <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl" style={{ background: '#C7A24B' }}></div>

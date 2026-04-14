@@ -26,10 +26,10 @@ export default function BookingHero() {
         >
           <div className="section-subtitle mb-4">Reservations</div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-playfair font-bold text-white mb-6">
-            Reserve Your <span className="gradient-text">Table</span>
+            Book <span className="gradient-text">Catering</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Book your table for an unforgettable dining experience
+            Book our catering for an unforgettable experience
           </p>
         </motion.div>
       </div>

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import GalleryHero from '@/components/pages/GalleryHero'
-import ScatterGallery from '@/components/pages/ScatterGallery'
+import CategoryGallery from '@/components/pages/CategoryGallery'
 
 export const metadata: Metadata = {
   title: "Gallery - Sri Mayyia Caterers",
@@ -11,7 +11,7 @@ export default function GalleryPage() {
   return (
     <>
       <GalleryHero />
-      <ScatterGallery />
+      <CategoryGallery />
     </>
   )
 }

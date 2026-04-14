@@ -12,7 +12,7 @@ export default function BookingForm() {
     date: '',
     time: '',
     guests: '2',
-    eventType: 'table',
+    eventType: 'catering',
     message: '',
   })
 
@@ -34,7 +34,7 @@ export default function BookingForm() {
           <div className="text-center mb-12">
             <div className="section-subtitle mb-4">Reservations</div>
             <h2 className="section-heading-light">
-              Reserve Your <span className="gradient-text">Table</span>
+              Book <span className="gradient-text">Catering</span>
             </h2>
             <p className="section-description-light">
               Fill out the form below and we'll get back to you to confirm your booking.
@@ -52,14 +52,14 @@ export default function BookingForm() {
                   type="button"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setFormData({ ...formData, eventType: 'table' })}
+                  onClick={() => setFormData({ ...formData, eventType: 'catering' })}
                   className={`py-4 px-6 rounded-lg border-2 transition-all duration-300 ${
-                    formData.eventType === 'table'
+                    formData.eventType === 'catering'
                       ? 'border-brandGold bg-brandGold/10 text-maroon'
                       : 'border-borderLight text-charcoal hover:border-brandGold bg-offwhite'
                   }`}
                 >
-                  Book a Table
+                  Book Catering
                 </motion.button>
                 <motion.button
                   type="button"
