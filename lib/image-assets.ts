@@ -81,7 +81,7 @@ export const IMAGE_ASSETS = {
     sectionBg: `${base}/menu/07.jpg`,
   },
   gallery: {
-    hero: `${base}/gallery/hero.jpg`,
+    hero: `${base}/Gallery.JPG`,
     grid: [
       `${base}/gallery/1.jpg`,
       `${base}/gallery/2.jpg`,
@@ -139,7 +139,7 @@ export const IMAGE_ASSETS = {
     ]
   },
   chefs: {
-    hero: `${base}/chefs/hero.jpg`,
+    hero: `${base}/chefs.JPG`,
     grid: [
       `${base}/chefs/1.jpg`,
       `${base}/chefs/2.jpg`,
@@ -148,10 +148,10 @@ export const IMAGE_ASSETS = {
     ],
   },
   booking: {
-    hero: `${base}/booking/hero.jpg`,
+    hero: `${base}/caterers.JPG`,
   },
   contact: {
-    hero: `${base}/contact/hero.jpg`,
+    hero: `${base}/contact1.png`,
   },
   logo: {
     /** Logo in public/images/logo/ — used in header (link to Home) */

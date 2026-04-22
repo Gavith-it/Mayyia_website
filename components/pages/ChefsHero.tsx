@@ -12,6 +12,7 @@ export default function ChefsHero() {
           src={IMAGE_ASSETS.chefs.hero}
           alt="Our Chefs"
           fill
+          unoptimized
           sizes="100vw"
           quality={92}
           priority

@@ -30,6 +30,7 @@ export default function ContactHero() {
           src={IMAGE_ASSETS.contact.hero}
           alt="Contact Hero"
           fill
+          unoptimized
           priority
           className="object-cover"
           quality={95}

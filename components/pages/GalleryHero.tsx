@@ -30,6 +30,7 @@ export default function GalleryHero() {
           src={IMAGE_ASSETS.gallery.hero}
           alt="Gallery Hero"
           fill
+          unoptimized
           priority
           className="object-cover"
           quality={95}

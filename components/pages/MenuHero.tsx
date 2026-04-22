@@ -30,6 +30,7 @@ export default function MenuHero() {
           src={IMAGE_ASSETS.menu.hero}
           alt="Exquisite Menu"
           fill
+          unoptimized
           priority
           className="object-cover"
           quality={95}

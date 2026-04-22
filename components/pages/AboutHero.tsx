@@ -12,6 +12,7 @@ export default function AboutHero() {
           src={IMAGE_ASSETS.about.hero}
           alt="About Sri Mayyia"
           fill
+          unoptimized
           sizes="100vw"
           className="object-cover"
           quality={95}

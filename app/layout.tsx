@@ -14,7 +14,7 @@ const greatVibes = Great_Vibes({
   variable: '--font-great-vibes',
   display: 'swap',
   preload: true,
-})
+})   
 
 const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700', '800', '900'],
