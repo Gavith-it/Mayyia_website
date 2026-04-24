@@ -61,7 +61,7 @@ export default function MenuHero() {
                   src={item.src}
                   alt={`Menu collage ${index}`}
                   fill
-                  unoptimized // Bypass Next.js image optimization for perfect performance
+          // Bypass Next.js image optimization for perfect performance
                   priority={index === 5} // Priority to the center image (index 5 in gridItems array)
                   className="object-cover transition-transform duration-700 hover:scale-105"
                   quality={90}

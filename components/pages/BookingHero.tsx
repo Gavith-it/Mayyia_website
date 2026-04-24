@@ -12,7 +12,6 @@ export default function BookingHero() {
           src={IMAGE_ASSETS.booking.hero}
           alt="Reservations"
           fill
-          unoptimized
           sizes="100vw"
           className="object-cover"
           quality={92}
