@@ -66,8 +66,8 @@ export default function ContactForm() {
               <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Phone
               </h3>
-              <p className="text-muted">
-                +91 80 1234 5678
+              <p className="text-muted text-sm">
+                +91 98450 38235 <br/> +91 99013 41111
               </p>
             </motion.div>
 
@@ -84,8 +84,8 @@ export default function ContactForm() {
               <h3 className="text-xl font-playfair font-semibold text-charcoal mb-2">
                 Email
               </h3>
-              <p className="text-muted">
-                info@srimayyia.com
+              <p className="text-muted break-all text-sm">
+                Customercare@srimayyiacaterers.com
               </p>
             </motion.div>
 

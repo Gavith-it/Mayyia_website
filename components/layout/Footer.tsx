@@ -141,16 +141,21 @@ export default function Footer() {
                   Service Radius: Pan-South India
                 </span>
               </li>
-              <li className="flex items-center space-x-2">
-                <FiPhone className="w-4 h-4 text-brandGold flex-shrink-0" />
-                <a href="tel:+918012345678" className="text-offwhite/90 hover:text-brandGold transition-colors">
-                  +91 80 1234 5678
-                </a>
+              <li className="flex items-start space-x-2">
+                <FiPhone className="w-4 h-4 text-brandGold flex-shrink-0 mt-1" />
+                <div className="flex flex-col text-offwhite/90">
+                  <a href="tel:+919845038235" className="hover:text-brandGold transition-colors">
+                    +91 98450 38235
+                  </a>
+                  <a href="tel:+919901341111" className="hover:text-brandGold transition-colors">
+                    +91 99013 41111
+                  </a>
+                </div>
               </li>
               <li className="flex items-center space-x-2">
                 <FiMail className="w-4 h-4 text-brandGold flex-shrink-0" />
-                <a href="mailto:info@srimayyia.com" className="text-offwhite/90 hover:text-brandGold transition-colors">
-                  info@srimayyia.com
+                <a href="mailto:Customercare@srimayyiacaterers.com" className="text-offwhite/90 hover:text-brandGold transition-colors text-sm break-all">
+                  Customercare@srimayyiacaterers.com
                 </a>
               </li>
             </ul>

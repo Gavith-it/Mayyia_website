@@ -1,136 +1,91 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import Image from 'next/image'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { MENU_CATEGORIES } from '@/lib/menu-data'
 import { IMAGE_ASSETS } from '@/lib/image-assets'
-import { FiPlus } from 'react-icons/fi'
-
-// Mock Data (merged with existing categories)
-const menuData = [
-    {
-        category: 'Starters',
-        image: IMAGE_ASSETS.home.signature[0],
-        description: 'Begin your culinary journey with our exquisitely crafted appetizers.',
-        items: [
-            { name: 'Truffle Arancini', price: '$24', desc: 'Risotto balls, black truffle, parmesan' },
-            { name: 'Spicy Corn Galettes', price: '$18', desc: 'Corn, jalapeño, avocado salsa' },
-            { name: 'Burrata & Heirloom', price: '$28', desc: 'Fresh burrata, tomatoes, basil oil' },
-            { name: 'Paneer Tikka Zaffrani', price: '$22', desc: 'Saffron marinated cottage cheese, mint chutney' },
-        ]
-    },
-    {
-        category: 'Main Course',
-        image: IMAGE_ASSETS.home.signature[1],
-        description: 'Hearty, flavorful, and satisfying mains drawn from royal kitchens.',
-        items: [
-            { name: 'Royal Thali', price: '$45', desc: 'Assortment of 12 distinct dishes' },
-            { name: 'Smoked Eggplant Curry', price: '$26', desc: 'Slow-roasted eggplant, spices, naan' },
-            { name: 'Wild Mushroom Risotto', price: '$32', desc: 'Arborio rice, porcini dust, truffle oil' },
-            { name: 'Hyderabadi Biryani', price: '$28', desc: 'Fragrant basmati rice, vegetables, saffron' },
-        ]
-    },
-    {
-        category: 'Desserts',
-        image: IMAGE_ASSETS.home.signature[2],
-        description: 'Sweet indulgences to complete your dining experience.',
-        items: [
-            { name: 'Saffron Rasmalai', price: '$18', desc: 'Soft cottage cheese dumplings, saffron milk' },
-            { name: 'Dark Chocolate Fondant', price: '$22', desc: 'Molten center, vanilla bean ice cream' },
-            { name: 'Mysore Pak Gold', price: '$16', desc: 'Traditional ghee sweet with edible gold' },
-        ]
-    },
-    {
-        category: 'Beverages',
-        image: IMAGE_ASSETS.home.signature[3],
-        description: 'Curated wines and signature mocktails.',
-        items: [
-            { name: 'Vintage Rose', price: '$14', desc: 'Sparkling rose with hibiscus' },
-            { name: 'Mango Lassi', price: '$10', desc: 'Fresh mango, yogurt, cardamom' },
-            { name: 'Masala Chai', price: '$8', desc: 'Spiced Indian tea' },
-        ]
-    }
-]
-
-    const MenuItem = ({ item }: { item: any }) => {
-        return (
-            <motion.div
-                 initial={{ opacity: 0, x: 20 }}
-                 whileInView={{ opacity: 1, x: 0 }}
-                 viewport={{ once: true }}
-                 className="flex justify-between items-start border-b border-borderLight pb-4 mb-4 group"
-             >
-                 <div>
-                     <h4 className="text-xl font-playfair text-charcoal group-hover:text-maroon transition-colors">{item.name}</h4>
-                     <p className="text-muted text-sm">{item.desc}</p>
-                 </div>
-                 <div className="text-maroon font-bold">{item.price}</div>
-             </motion.div>
-         )
-     }
-
-const MenuPage = ({ data, index }: { data: any, index: number }) => {
-    const ref = useRef(null)
-    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-
-    // Parallax effect for image
-    const y = useTransform(scrollYProgress, [0, 1], [-50, 50])
-
-    return (
-        <section ref={ref} className="min-h-screen w-full flex items-center justify-center sticky top-0 bg-beige border-t border-borderLight overflow-hidden">
-
-            {/* 3D Content Container */}
-            <div className="container-custom grid lg:grid-cols-2 gap-12 items-center relative z-10">
-
-                {/* Left: Image Card with Tilt */}
-                <motion.div
-                    initial={{ opacity: 0, rotateY: 30, x: -50 }}
-                    whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative aspect-[3/4] lg:h-[70vh] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5"
-                >
-                    <motion.div style={{ y }} className="absolute inset-0 h-[120%] w-full -top-[10%]">
-                        <Image
-                            src={data.image}
-                            alt={data.category}
-                            fill
-                            className="object-cover"
-                        />
-                    </motion.div>
-
-                    {/* Steam/Smoke Effect Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-10 left-10">
-                        <h2 className="text-5xl md:text-7xl font-great-vibes text-gold-400 mb-2">{data.category}</h2>
-                        <p className="text-white/80 max-w-md font-playfair">{data.description}</p>
-                    </div>
-                </motion.div>
-
-                {/* Right: Menu Items List */}
-                <div className="premium-card bg-offwhite/80 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-borderLight shadow-lg">
-                    <div className="space-y-6">
-                        {data.items.map((item: any, i: number) => (
-                            <MenuItem key={i} item={item} />
-                        ))}
-                    </div>
-                    <div className="mt-8 pt-6 border-t border-borderLight text-center">
-                        <button className="text-maroon uppercase tracking-widest text-xs font-bold hover:text-gold-600 transition-colors flex items-center justify-center gap-2">
-                            <FiPlus /> View All {data.category}
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    )
-}
+import Image from 'next/image'
 
 export default function MenuBook() {
-     return (
-         <div className="relative bg-beige">
-             {menuData.map((category, i) => (
-                <MenuPage key={i} data={category} index={i} />
-            ))}
-        </div>
+    const [activeCategory, setActiveCategory] = useState(MENU_CATEGORIES[0].id)
+
+    // Helper: get current category data
+    const currentCategoryData = MENU_CATEGORIES.find(c => c.id === activeCategory)
+
+    // Select dynamic background pattern or image for the category grid background
+    // To make it look premium, we'll use a soft dark background with subtle gold borders.
+    return (
+        <section className="min-h-screen bg-beige py-20 relative overflow-hidden">
+            <div className="container-custom relative z-10">
+                {/* Header Titles */}
+                <div className="text-center mb-16">
+                    <span className="text-maroon uppercase tracking-[0.3em] text-xs font-bold mb-2 block">Sri Mayyia Exclusives</span>
+                    <h2 className="text-4xl md:text-6xl font-great-vibes text-charcoal">Our Signature Menu</h2>
+                    <p className="text-muted max-w-2xl mx-auto mt-4 font-playfair">
+                        A curated selection of our most loved culinary masterpieces across six major traditions.
+                    </p>
+                </div>
+
+                {/* Filter Pills */}
+                <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-16">
+                    {MENU_CATEGORIES.map((cat) => {
+                        const isActive = activeCategory === cat.id
+                        return (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(cat.id)}
+                                className={`px-5 py-2 md:px-8 md:py-3 rounded-full font-semibold text-sm md:text-base tracking-widest transition-all duration-300 font-playfair ${
+                                    isActive
+                                        ? 'bg-brandGold text-charcoal shadow-lg'
+                                        : 'bg-offwhite border border-borderLight text-charcoal hover:border-brandGold'
+                                }`}
+                            >
+                                {cat.name}
+                            </button>
+                        )
+                    })}
+                </div>
+
+                {/* Content Grid Area */}
+                <div className="min-h-[500px]">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeCategory}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5, staggerChildren: 0.1 }}
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12"
+                        >
+                            {currentCategoryData?.subCategories.map((sub, idx) => (
+                                <motion.div 
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: idx * 0.1, duration: 0.4 }}
+                                    key={idx} 
+                                    className="bg-offwhite p-8 md:p-10 rounded-2xl border border-borderLight hover:border-brandGold shadow-md transition-all duration-300 group"
+                                >
+                                    {/* Sub-Category Header */}
+                                    <div className="border-b border-borderLight pb-4 mb-6 relative">
+                                        <h3 className="text-2xl md:text-3xl font-great-vibes text-maroon mb-1">{sub.name}</h3>
+                                        <div className="absolute -bottom-[1px] left-0 w-16 h-[2px] bg-brandGold group-hover:w-full transition-all duration-700"></div>
+                                    </div>
+
+                                    {/* Item List (no prices) */}
+                                    <ul className="space-y-4">
+                                        {sub.items.map((item, itemIdx) => (
+                                            <li key={itemIdx} className="flex items-start text-charcoal font-playfair group/item">
+                                                <span className="text-brandGold mr-3 mt-1 text-xs">◆</span>
+                                                <span className="text-lg md:text-xl group-hover/item:text-maroon transition-colors">{item.name}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            </div>
+        </section>
     )
 }

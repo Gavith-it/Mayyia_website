@@ -69,7 +69,7 @@ const config: Config = {
         'scale-in': 'scaleIn 0.8s ease-out',
         'float': 'float 6s ease-in-out infinite',
         'shimmer': 'shimmer 2s linear infinite',
-        'spin-slow': 'spin 3s linear infinite',
+        'spin-slow': 'spin 15s linear infinite',
         'gradient-shift': 'gradient-shift 3s ease infinite',
       },
       keyframes: {

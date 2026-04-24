@@ -650,7 +650,6 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
       >
         <div
           className="bg-dark-800 rounded-xl max-w-md w-full overflow-hidden border border-gold-400/20"
-          onClick={(e) => e.stopPropagation()}
           style={{
             animation: 'scaleIn 0.3s ease-out'
           }}
@@ -661,12 +660,6 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
               alt={selectedImage.alt}
               className="w-full h-full object-cover"
             />
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-2 right-2 w-8 h-8 bg-black/50 rounded-full text-white flex items-center justify-center hover:bg-black/70 transition-all cursor-pointer"
-            >
-              <X size={16} />
-            </button>
           </div>
           {(selectedImage.title || selectedImage.description) && (
             <div className="p-6">

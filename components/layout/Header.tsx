@@ -66,7 +66,6 @@ export default function Header() {
     { href: '/about', label: 'About' },
     { href: '/menu', label: 'Menu' },
     { href: '/gallery', label: 'Gallery' },
-    { href: '/chefs', label: 'Chefs' },
     { href: '/booking', label: 'Book Catering' },
     { href: '/contact', label: 'Contact' },
   ]
@@ -236,16 +235,22 @@ export default function Header() {
                   <div className="space-y-2 pt-2">
                     <p className="text-muted text-xs font-playfair uppercase tracking-wider">Contact Us</p>
                     <a 
-                      href="tel:+1234567890" 
+                      href="tel:+919845038235" 
                       className="text-charcoal hover:text-maroon transition-colors block font-montserrat text-sm"
                     >
-                      +1 (234) 567-890
+                      +91 98450 38235
                     </a>
                     <a 
-                      href="mailto:info@srimayyia.com" 
-                      className="text-charcoal hover:text-maroon transition-colors block text-xs font-montserrat"
+                      href="tel:+919901341111" 
+                      className="text-charcoal hover:text-maroon transition-colors block font-montserrat text-sm"
                     >
-                      info@srimayyia.com
+                      +91 99013 41111
+                    </a>
+                    <a 
+                      href="mailto:Customercare@srimayyiacaterers.com" 
+                      className="text-charcoal hover:text-maroon transition-colors block text-xs font-montserrat break-all mt-1"
+                    >
+                      Customercare@srimayyiacaterers.com
                     </a>
                   </div>
                 </motion.div>
