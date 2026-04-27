@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { FiMapPin, FiPhone, FiMail, FiFacebook, FiInstagram, FiTwitter, FiYoutube } from 'react-icons/fi'
+import { FiMapPin, FiPhone, FiMail, FiFacebook, FiInstagram, FiYoutube } from 'react-icons/fi'
 import { IMAGE_ASSETS } from '@/lib/image-assets'
 
 export default function Footer() {
@@ -25,10 +25,9 @@ export default function Footer() {
   }
 
   const socialLinks = [
-    { icon: FiFacebook, href: '#', label: 'Facebook' },
-    { icon: FiInstagram, href: '#', label: 'Instagram' },
-    { icon: FiTwitter, href: '#', label: 'Twitter' },
-    { icon: FiYoutube, href: '#', label: 'YouTube' },
+    { icon: FiFacebook, href: 'https://www.facebook.com/share/1AkAkbrYfa/?mibextid=wwXIfr', label: 'Facebook' },
+    { icon: FiInstagram, href: 'https://www.instagram.com/srimayyia_caterers?igsh=amRxaHl3aDFtYzR0&utm_source=qr', label: 'Instagram' },
+    { icon: FiYoutube, href: 'https://youtube.com/@srimayyiacaterers?si=hyny-D_G0M-NVHr0', label: 'YouTube' },
   ]
 
   return (
@@ -71,6 +70,8 @@ export default function Footer() {
                 <motion.a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-9 h-9 flex items-center justify-center rounded-full border border-borderLight/30 text-brandGold hover:bg-brandGold/10 hover:border-brandGold/50 transition-all duration-300"
@@ -135,11 +136,17 @@ export default function Footer() {
             <h4 className="text-lg font-playfair font-semibold mb-4 text-brandGold">Contact Info</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2">
-                <FiMapPin className="w-4 h-4 text-brandGold mt-0.5 flex-shrink-0" />
-                <span className="text-offwhite/90">
-                  Office: Bengaluru<br />
-                  Service Radius: Pan-South India
-                </span>
+                <FiMapPin className="w-4 h-4 text-brandGold mt-1 flex-shrink-0" />
+                <div className="text-offwhite/90 text-sm flex flex-col space-y-2">
+                  <p>
+                    <strong className="text-brandGold block mb-1">Marketing Office:</strong>
+                    #32 Market Road, Basavanagudi, Gandhi Bazaar, Bengaluru 560004, Karnataka, India
+                  </p>
+                  <p>
+                    <strong className="text-brandGold block mb-1">Corporate Office:</strong>
+                    #39/2 C-2 Govardhanagiri, Kalyani Gardens, BSK 1st Stage, Bengaluru -560004, Karnataka, India
+                  </p>
+                </div>
               </li>
               <li className="flex items-start space-x-2">
                 <FiPhone className="w-4 h-4 text-brandGold flex-shrink-0 mt-1" />

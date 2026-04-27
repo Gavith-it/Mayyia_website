@@ -11,7 +11,7 @@ export default function BookingForm() {
     phone: '',
     date: '',
     time: '',
-    guests: '2',
+    guests: '100',
     eventType: 'catering',
     message: '',
   })
@@ -172,13 +172,12 @@ export default function BookingForm() {
                     onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
                     className="w-full pl-12 pr-4 py-3 bg-offwhite border border-borderLight rounded-lg focus:ring-2 focus:ring-brandGold focus:border-brandGold text-charcoal bg-offwhite"
                   >
-                    <option value="1">1 Person</option>
-                    <option value="2">2 People</option>
-                    <option value="3">3 People</option>
-                    <option value="4">4 People</option>
-                    <option value="5">5 People</option>
-                    <option value="6">6 People</option>
-                    <option value="7+">7+ People</option>
+                    <option value="100">100 People</option>
+                    <option value="200">200 People</option>
+                    <option value="500">500 People</option>
+                    <option value="1000">1000 People</option>
+                    <option value="3000">3000 People</option>
+                    <option value="5000">5000 People</option>
                   </select>
                 </div>
               </div>
