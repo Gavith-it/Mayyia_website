@@ -12,11 +12,36 @@ export default function ContactForm() {
     subject: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    alert('Thank you for your message! We will get back to you soon.')
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const glassInputClass = "w-full px-4 py-3 bg-white/60 border border-borderLight rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-charcoal placeholder-muted/60 backdrop-blur-sm transition-all"
@@ -191,15 +216,24 @@ export default function ContactForm() {
                     placeholder="Tell us about your event..."
                   />
                 </div>
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-8 py-4 bg-maroon text-white font-bold rounded-lg shadow-lg hover:bg-maroonHover transition-all flex items-center gap-2"
-                >
-                  <FiSend className="w-5 h-5" />
-                  Send Message
-                </motion.button>
+                <div className="flex items-center gap-4">
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting || submitStatus === 'success'}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-8 py-4 bg-maroon text-white font-bold rounded-lg shadow-lg hover:bg-maroonHover transition-all flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    <FiSend className={`w-5 h-5 ${isSubmitting ? 'animate-pulse' : ''}`} />
+                    {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Sent!' : 'Send Message'}
+                  </motion.button>
+                  {submitStatus === 'success' && (
+                    <p className="text-green-600 font-medium">Message sent successfully!</p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="text-red-500 font-medium">Failed to send. Please try again.</p>
+                  )}
+                </div>
               </form>
             </motion.div>
           </div>

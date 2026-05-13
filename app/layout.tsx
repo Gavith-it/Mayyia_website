@@ -3,7 +3,6 @@ import { Playfair_Display, Montserrat, Great_Vibes } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import Preloader from '@/components/layout/Preloader'
 import ScrollToTop from '@/components/layout/ScrollToTop'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 import NoiseOverlay from '@/components/ui/NoiseOverlay'
@@ -42,7 +41,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${greatVibes.variable} ${playfair.variable} ${montserrat.variable}`}>
       <body className="font-montserrat antialiased">
-        <Preloader />
         <div className="relative min-h-screen">
           <Header />
           <NoiseOverlay />

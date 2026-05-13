@@ -15,11 +15,36 @@ export default function BookingForm() {
     eventType: 'catering',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    alert('Thank you for your booking request! We will contact you soon.')
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, formType: 'Booking Form' }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', phone: '', date: '', time: '', guests: '100', eventType: 'catering', message: '' })
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -200,12 +225,21 @@ export default function BookingForm() {
             {/* Submit Button */}
             <motion.button
               type="submit"
+              disabled={isSubmitting || submitStatus === 'success'}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="btn-primary w-full text-lg"
+              className="btn-primary w-full text-lg flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Submit Reservation
+              {isSubmitting && <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
+              {isSubmitting ? 'Submitting...' : submitStatus === 'success' ? 'Submitted Successfully!' : 'Submit Reservation'}
             </motion.button>
+            
+            {submitStatus === 'success' && (
+              <p className="text-green-600 font-medium text-center">Your booking request has been sent successfully!</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="text-red-500 font-medium text-center">Failed to submit booking. Please try again.</p>
+            )}
 
             <p className="text-sm text-muted text-center">
               We'll contact you within 24 hours to confirm your reservation.
