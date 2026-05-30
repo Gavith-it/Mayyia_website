@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer'
 import ScrollToTop from '@/components/layout/ScrollToTop'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 import NoiseOverlay from '@/components/ui/NoiseOverlay'
+import OtpGate from '@/components/ui/OtpGate'
 
 const greatVibes = Great_Vibes({
   weight: ['400'],
@@ -41,14 +42,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${greatVibes.variable} ${playfair.variable} ${montserrat.variable}`}>
       <body className="font-montserrat antialiased">
-        <div className="relative min-h-screen">
-          <Header />
-          <NoiseOverlay />
-          <SmoothScroll />
-          <main>{children}</main>
-          <Footer />
-          <ScrollToTop />
-        </div>
+        <OtpGate>
+          <div className="relative min-h-screen">
+            <Header />
+            <NoiseOverlay />
+            <SmoothScroll />
+            <main>{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </div>
+        </OtpGate>
       </body>
     </html>
   )
