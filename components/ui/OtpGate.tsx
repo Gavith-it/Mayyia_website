@@ -91,7 +91,7 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
       const response = await fetch('/api/otp/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, otp }),
+        body: JSON.stringify({ name, phone, otp }),
       })
 
       const resData = await response.json()

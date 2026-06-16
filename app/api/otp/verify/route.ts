@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
+import { sendWhatsAppTemplate } from '@/lib/whatsapp';
 
 export async function POST(req: Request) {
   try {
-    const { phone, otp } = await req.json();
+    const { name, phone, otp } = await req.json();
 
     if (!phone || !otp) {
       return NextResponse.json({ success: false, error: 'Phone and OTP code are required.' }, { status: 400 });
@@ -65,6 +66,25 @@ export async function POST(req: Request) {
 
     // Delete the temporary OTP session cookie
     response.cookies.delete('sri_mayyia_otp_session');
+
+    // Send notification to Admin number
+    const adminPhone = process.env.ADMIN_WHATSAPP_NUMBER;
+    if (adminPhone) {
+      try {
+        await sendWhatsAppTemplate({
+          to: adminPhone,
+          templateName: 'inquiry_form',
+          parameters: [
+            name || 'Anonymous User',
+            phone || 'No Phone',
+            'Website Login',
+            `The user "${name}" has successfully verified their OTP and logged into the website.`
+          ]
+        });
+      } catch (err) {
+        console.error('Failed to notify admin of user login:', err);
+      }
+    }
 
     return response;
   } catch (error) {
