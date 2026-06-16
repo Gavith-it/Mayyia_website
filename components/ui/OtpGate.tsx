@@ -26,8 +26,12 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
   // 3. Step 1: Submit Details & Send OTP
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim() || !phone.trim()) {
-      setError('Please enter both your name and WhatsApp number.')
+    if (!name.trim()) {
+      setError('Please enter your full name.')
+      return
+    }
+    if (phone.length !== 10) {
+      setError('Please enter a valid 10-digit WhatsApp number.')
       return
     }
 
@@ -39,7 +43,7 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
       const response = await fetch('/api/otp/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone }),
+        body: JSON.stringify({ name, phone: '91' + phone }),
       })
 
       const resData = await response.json()
@@ -75,7 +79,7 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
       const response = await fetch('/api/otp/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, otp }),
+        body: JSON.stringify({ name, phone: '91' + phone, otp }),
       })
 
       const resData = await response.json()
@@ -214,15 +218,20 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[#b8860b] mb-2">
                   WhatsApp Number
                 </label>
-                <div className="relative">
-                  <FiPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                <div className="relative flex items-center">
+                  <span className="absolute left-4 text-white/50 font-normal text-sm border-r border-white/10 pr-2 pointer-events-none">
+                    +91
+                  </span>
                   <input
                     type="tel"
                     required
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b8860b]/50 focus:border-[#b8860b]/50 text-white placeholder-white/30 transition-all font-light"
-                    placeholder="e.g. +91 99000 00000"
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      setPhone(val);
+                    }}
+                    className="w-full pl-16 pr-4 py-3.5 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#b8860b]/50 focus:border-[#b8860b]/50 text-white placeholder-white/30 transition-all font-light"
+                    placeholder="99000 00000"
                   />
                 </div>
                 <p className="text-[10px] text-white/40 mt-1.5 flex items-center gap-1.5 px-1">
@@ -287,7 +296,7 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
                   />
                 </div>
                 <p className="text-[10px] text-white/40 mt-1.5 text-center">
-                  Sent to {phone}. Please check your WhatsApp.
+                  Sent to +91 {phone}. Please check your WhatsApp.
                 </p>
               </div>
 
