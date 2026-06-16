@@ -139,10 +139,6 @@ export default function Footer() {
                 <FiMapPin className="w-4 h-4 text-brandGold mt-1 flex-shrink-0" />
                 <div className="text-offwhite/90 text-sm flex flex-col space-y-2">
                   <p>
-                    <strong className="text-brandGold block mb-1">Marketing Office:</strong>
-                    #32 Market Road, Basavanagudi, Gandhi Bazaar, Bengaluru 560004, Karnataka, India
-                  </p>
-                  <p>
                     <strong className="text-brandGold block mb-1">Corporate Office:</strong>
                     #39/2 C-2 Govardhanagiri, Kalyani Gardens, BSK 1st Stage, Bengaluru -560004, Karnataka, India
                   </p>
