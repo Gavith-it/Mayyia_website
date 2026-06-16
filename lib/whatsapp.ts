@@ -11,7 +11,7 @@ interface SendTemplateParams {
 export async function sendWhatsAppTemplate({
   to,
   templateName,
-  languageCode = process.env.WHATSAPP_TEMPLATE_LANG || 'en_US',
+  languageCode = process.env.WHATSAPP_TEMPLATE_LANG || 'en',
   parameters,
 }: SendTemplateParams) {
   const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;

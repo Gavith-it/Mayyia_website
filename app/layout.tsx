@@ -42,14 +42,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${greatVibes.variable} ${playfair.variable} ${montserrat.variable}`}>
       <body className="font-montserrat antialiased">
-        <div className="relative min-h-screen">
-          <Header />
-          <NoiseOverlay />
-          <SmoothScroll />
-          <main>{children}</main>
-          <Footer />
-          <ScrollToTop />
-        </div>
+        <OtpGate>
+          <div className="relative min-h-screen">
+            <Header />
+            <NoiseOverlay />
+            <SmoothScroll />
+            <main>{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </div>
+        </OtpGate>
       </body>
     </html>
   )
