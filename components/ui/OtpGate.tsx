@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiPhone, FiUser, FiLock, FiCheckCircle, FiAlertCircle, FiTrendingUp } from 'react-icons/fi'
 
 export default function OtpGate({ children }: { children: React.ReactNode }) {
-  const [isVerified, setIsVerified] = useState<boolean | null>(null)
+  const [isVerified, setIsVerified] = useState<boolean>(false)
   const [step, setStep] = useState<'details' | 'otp'>('details')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -14,22 +14,6 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
   const [countdown, setCountdown] = useState(0)
-
-  // 1. Check if user is already verified on mount
-  useEffect(() => {
-    const checkVerification = () => {
-      // Check both cookie and localStorage for backup robustness
-      const cookieVerified = document.cookie.includes('sri_mayyia_verified=true')
-      const localVerified = localStorage.getItem('sri_mayyia_verified') === 'true'
-      
-      if (cookieVerified || localVerified) {
-        setIsVerified(true)
-      } else {
-        setIsVerified(false)
-      }
-    }
-    checkVerification()
-  }, [])
 
   // 2. Resend Countdown Timer
   useEffect(() => {
@@ -98,7 +82,6 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
 
       if (response.ok && resData.success) {
         setSuccessMsg('Access Granted! Welcome to Sri Mayyia Caterers.')
-        localStorage.setItem('sri_mayyia_verified', 'true')
         
         // Let user see success message for a brief moment before fading out
         setTimeout(() => {
@@ -116,15 +99,6 @@ export default function OtpGate({ children }: { children: React.ReactNode }) {
   }
 
   // Loading state overlay during verification check
-  if (isVerified === null) {
-    return (
-      <div className="fixed inset-0 z-50 bg-[#160406] flex flex-col items-center justify-center">
-        <div className="w-16 h-16 border-4 border-[#b8860b]/30 border-t-[#b8860b] rounded-full animate-spin mb-4" />
-        <p className="text-[#b8860b] font-medium tracking-wide">Securing Fine Dining Experience...</p>
-      </div>
-    )
-  }
-
   // If already verified, render the website normally
   if (isVerified) {
     return <>{children}</>
